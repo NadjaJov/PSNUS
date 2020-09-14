@@ -57,11 +57,7 @@ namespace WpfApp1
             bool checkValue = false;
             bool checkV = false;
             
-            foreach (var a in Data_Concentrator.Context.DOItems)
-            {
-                string st = NameBoxDO.Text;
-                if (st==a.IdNameDO) { NameBoxDO.BorderBrush = Brushes.Red; checkEqual = true; } else NameBoxDO.BorderBrush = Brushes.LightGray;
-            }
+          
 
             string str = ValueBoxDO.Text;
             string s1 = "1";
@@ -70,6 +66,11 @@ namespace WpfApp1
             else if (str==s0) { ValueBoxDO.BorderBrush = Brushes.LightGray; checkV = false; }
             else { ValueBoxDO.BorderBrush = Brushes.Red; checkV = true; }
             if (NameBoxDO.Text.Length == 0 || NameBoxDO.Text.ToString().Trim().Length==0) { NameBoxDO.BorderBrush = Brushes.Red; checkName= true; } else NameBoxDO.BorderBrush = Brushes.LightGray;
+            foreach (var a in Data_Concentrator.Context.DOItems)
+            {
+                string st = NameBoxDO.Text;
+                if (st == a.IdNameDO) { NameBoxDO.BorderBrush = Brushes.Red; checkEqual = true; } else NameBoxDO.BorderBrush = Brushes.LightGray;
+            }
             if (DescriptionBoxDO.Text.Length == 0 || DescriptionBoxDO.Text.ToString().Trim().Length==0) { DescriptionBoxDO.BorderBrush = Brushes.Red; checkDescription= true; } else DescriptionBoxDO.BorderBrush = Brushes.LightGray;
             if (AddressComboDO.SelectedValue == null) { BorderDO.BorderBrush = Brushes.Red; checkAddress= true; } else BorderDO.BorderBrush = Brushes.LightGray;
             if (ValueBoxDO.Text.Length == 0 || ValueBoxDO.Text.ToString().Trim().Length==0) { ValueBoxDO.BorderBrush = Brushes.Red; checkValue= true; } else ValueBoxDO.BorderBrush = Brushes.LightGray;

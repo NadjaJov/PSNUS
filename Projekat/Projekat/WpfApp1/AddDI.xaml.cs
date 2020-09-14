@@ -55,13 +55,14 @@ namespace WpfApp1
             bool checkTime = false;
             
             
+          
+            double proposedValue;
+            if (NameBoxDI.Text.Length == 0 || NameBoxDI.Text.ToString().Trim().Length == 0) { NameBoxDI.BorderBrush = Brushes.Red; checkName=true; } else NameBoxDI.BorderBrush = Brushes.LightGray;
             foreach (var a in Data_Concentrator.Context.DIItems)
             {
                 string st = NameBoxDI.Text;
-                if (st==a.IdNameDI) { NameBoxDI.BorderBrush = Brushes.Red; checkEqual = true; } else NameBoxDI.BorderBrush = Brushes.LightGray;
+                if (st == a.IdNameDI) { NameBoxDI.BorderBrush = Brushes.Red; checkEqual = true; } else NameBoxDI.BorderBrush = Brushes.LightGray;
             }
-            double proposedValue;
-            if (NameBoxDI.Text.Length == 0 || NameBoxDI.Text.ToString().Trim().Length == 0) { NameBoxDI.BorderBrush = Brushes.Red; checkName=true; } else NameBoxDI.BorderBrush = Brushes.LightGray;
             if (DescriptionBoxDI.Text.Length == 0 || DescriptionBoxDI.Text.ToString().Trim().Length==0) { DescriptionBoxDI.BorderBrush = Brushes.Red; checkDescription= true; } else DescriptionBoxDI.BorderBrush = Brushes.LightGray;
             if (TimeBoxDI.Text.Length == 0 || TimeBoxDI.Text.ToString().StartsWith("0") || TimeBoxDI.Text.ToString().Trim().Length == 0) { TimeBoxDI.BorderBrush = Brushes.Red; checkTime = true; }
             else if (TimeBoxDI.Text.ToString().Any(char.IsSymbol)) { TimeBoxDI.BorderBrush = Brushes.Red; checkTime = true; }

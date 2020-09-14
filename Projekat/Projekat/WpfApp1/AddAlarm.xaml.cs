@@ -45,17 +45,18 @@ namespace WpfApp1
             bool checkValue = false;
             bool checkEqual = false;
             double proposedValue;
+           
+            if (limitvalueBoxAlarm.Text.Length == 0 || limitvalueBoxAlarm.Text.ToString().Any(char.IsLetter) || limitvalueBoxAlarm.Text.ToString().Trim().Length == 0 || limitvalueBoxAlarm.Text.ToString().Any(char.IsWhiteSpace)) { limitvalueBoxAlarm.BorderBrush = Brushes.Red; checkValue = true; }
+            else if (!double.TryParse(limitvalueBoxAlarm.Text.ToString(), out proposedValue)) { limitvalueBoxAlarm.BorderBrush = Brushes.Red; checkValue = true; }
+            else { limitvalueBoxAlarm.BorderBrush = Brushes.LightGray; checkValue = false; }
+
+            if (NameBoxAlarm.Text.Length == 0 || NameBoxAlarm.Text.ToString().Trim().Length == 0) { NameBoxAlarm.BorderBrush = Brushes.Red; checkName = true; } else NameBoxAlarm.BorderBrush = Brushes.LightGray;
             foreach (var a in Data_Concentrator.Context.AlarmItems)
             {
                 string str = NameBoxAlarm.Text;
                 if (str == a.IdNameAlarm) { NameBoxAlarm.BorderBrush = Brushes.Red; checkEqual = true; } else NameBoxAlarm.BorderBrush = Brushes.LightGray;
             }
-            
-            if (limitvalueBoxAlarm.Text.Length == 0 || limitvalueBoxAlarm.Text.ToString().Any(char.IsLetter) || limitvalueBoxAlarm.Text.ToString().Trim().Length == 0 || limitvalueBoxAlarm.Text.ToString().Any(char.IsWhiteSpace)) { limitvalueBoxAlarm.BorderBrush = Brushes.Red; checkValue = true; } 
-            else if (!double.TryParse(limitvalueBoxAlarm.Text.ToString(), out proposedValue)) { limitvalueBoxAlarm.BorderBrush = Brushes.Red; checkValue = true; }
-            else {limitvalueBoxAlarm.BorderBrush = Brushes.LightGray; checkValue = false; }
-        
-            if (NameBoxAlarm.Text.Length == 0 || NameBoxAlarm.Text.ToString().Trim().Length == 0) { NameBoxAlarm.BorderBrush = Brushes.Red; checkName = true; } else NameBoxAlarm.BorderBrush = Brushes.LightGray;
+
             if (messageBoxAlarm.Text.Length == 0 || messageBoxAlarm.Text.ToString().Trim().Length == 0) { messageBoxAlarm.BorderBrush = Brushes.Red; checkMessage = true; } else messageBoxAlarm.BorderBrush = Brushes.LightGray;
             if (overunderBoxAlarm.Text.Length == 0) { BorderAlarm.BorderBrush = Brushes.Red; checkOU = true; } else BorderAlarm.BorderBrush = Brushes.LightGray;
            

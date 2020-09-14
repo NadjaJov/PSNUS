@@ -56,11 +56,7 @@ namespace WpfApp1
             bool checkUnits = false;
             bool checkValue = false;
           
-            foreach (var a in Data_Concentrator.Context.AOItems)
-            {
-                string str = NameBoxAO.Text;
-                if (str==a.IdNameAO) { NameBoxAO.BorderBrush = Brushes.Red; checkEqual = true; } else NameBoxAO.BorderBrush = Brushes.LightGray;
-            }
+           
            
             double proposedValue;
             if (ValueBoxAO.Text.Length == 0 || ValueBoxAO.Text.ToString().Trim().Length == 0) { ValueBoxAO.BorderBrush = Brushes.Red; checkValue = true; }
@@ -73,6 +69,11 @@ namespace WpfApp1
            
 
             if (NameBoxAO.Text.Length == 0 || NameBoxAO.Text.ToString().Trim().Length == 0) { NameBoxAO.BorderBrush = Brushes.Red; checkName=true; } else NameBoxAO.BorderBrush = Brushes.LightGray;
+            foreach (var a in Data_Concentrator.Context.AOItems)
+            {
+                string str = NameBoxAO.Text;
+                if (str == a.IdNameAO) { NameBoxAO.BorderBrush = Brushes.Red; checkEqual = true; } else NameBoxAO.BorderBrush = Brushes.LightGray;
+            }
             if (DescriptionBoxAO.Text.Length == 0  || DescriptionBoxAO.Text.ToString().Trim().Length == 0) { DescriptionBoxAO.BorderBrush = Brushes.Red; checkDescription=true; } else DescriptionBoxAO.BorderBrush = Brushes.LightGray;
             if (UnitsBoxAO.Text.Length == 0 || UnitsBoxAO.Text.ToString().Trim().Length==0) { UnitsBoxAO.BorderBrush = Brushes.Red; checkUnits=true; } else UnitsBoxAO.BorderBrush = Brushes.LightGray;
             if (AddressComboAO.Text.Length==0) { BorderAO.BorderBrush = Brushes.Red; checkAddress= true; } else BorderAO.BorderBrush = Brushes.LightGray;
