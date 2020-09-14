@@ -34,7 +34,8 @@ namespace WpfApp1
                 {
                     foreach (var h in ai.History.Split(';'))
                     {
-                        historyList.Add(h);
+                       if( h!="")
+                       historyList.Add(h);
                     }
                 }
                 hList.ItemsSource = historyList;

@@ -55,45 +55,30 @@ namespace WpfApp1
             bool checkDescription = false;
             bool checkUnits = false;
             bool checkValue = false;
-            bool checkL = false;
-            bool checkDouble = false;
-            int i = 0;
+          
             foreach (var a in Data_Concentrator.Context.AOItems)
             {
                 string str = NameBoxAO.Text;
                 if (str==a.IdNameAO) { NameBoxAO.BorderBrush = Brushes.Red; checkEqual = true; } else NameBoxAO.BorderBrush = Brushes.LightGray;
             }
-            foreach (var c in ValueBoxAO.Text.ToString())
-            {
-                if (c.Equals(".")) i++;
-            }
-            if (i == 0) { checkDouble = false; ValueBoxAO.BorderBrush = Brushes.LightGray; }
-            else if (i == 1) { checkDouble = false; ValueBoxAO.BorderBrush = Brushes.LightGray; }
+           
             double proposedValue;
             if (ValueBoxAO.Text.Length == 0 || ValueBoxAO.Text.ToString().Trim().Length == 0) { ValueBoxAO.BorderBrush = Brushes.Red; checkValue = true; }
            
             else if (ValueBoxAO.Text.ToString().Any(char.IsLetter)) { ValueBoxAO.BorderBrush = Brushes.Red; checkValue = true; }
             else if (ValueBoxAO.Text.ToString().Any(char.IsWhiteSpace)) { ValueBoxAO.BorderBrush = Brushes.Red; checkValue = true; }
             else if (!double.TryParse(ValueBoxAO.Text.ToString(), out proposedValue)) { ValueBoxAO.BorderBrush = Brushes.Red; checkValue = true; }
-          
+            else if (ValueBoxAO.Text.ToString().Equals("0")) { ValueBoxAO.BorderBrush = Brushes.Red; checkValue = true; }
             else { checkValue = false; ValueBoxAO.BorderBrush = Brushes.LightGray; }
-            if (ValueBoxAO.Text.ToString().Equals("0")) { ValueBoxAO.BorderBrush = Brushes.Red; checkValue = true; }
+           
 
-            else { checkDouble = true; ValueBoxAO.BorderBrush = Brushes.Red; }
             if (NameBoxAO.Text.Length == 0 || NameBoxAO.Text.ToString().Trim().Length == 0) { NameBoxAO.BorderBrush = Brushes.Red; checkName=true; } else NameBoxAO.BorderBrush = Brushes.LightGray;
             if (DescriptionBoxAO.Text.Length == 0  || DescriptionBoxAO.Text.ToString().Trim().Length == 0) { DescriptionBoxAO.BorderBrush = Brushes.Red; checkDescription=true; } else DescriptionBoxAO.BorderBrush = Brushes.LightGray;
             if (UnitsBoxAO.Text.Length == 0 || UnitsBoxAO.Text.ToString().Trim().Length==0) { UnitsBoxAO.BorderBrush = Brushes.Red; checkUnits=true; } else UnitsBoxAO.BorderBrush = Brushes.LightGray;
             if (AddressComboAO.Text.Length==0) { BorderAO.BorderBrush = Brushes.Red; checkAddress= true; } else BorderAO.BorderBrush = Brushes.LightGray;
-            char m = '-';
-            char mm = ValueBoxAO.Text.ToString().First();
-            if (ValueBoxAO.Text.ToString().Any(char.IsSymbol))
-            {
-                if (mm != m)
-                { checkL = true; ValueBoxAO.BorderBrush = Brushes.Red; }
-                else { checkL = false; ValueBoxAO.BorderBrush = Brushes.LightGray; }
-            }
-            if (ValueBoxAO.Text.Length == 0 || ValueBoxAO.Text.ToString().Any(char.IsSymbol) || ValueBoxAO.Text.ToString().Any(char.IsLetter) || ValueBoxAO.Text.ToString().Trim().Length==0) { ValueBoxAO.BorderBrush = Brushes.Red; checkValue= true; } else ValueBoxAO.BorderBrush = Brushes.LightGray;
-            if (checkName == false && checkEqual == false && checkL==false &&checkAddress==false && checkDescription==false && checkUnits==false && checkValue==false && checkDouble==false)
+           
+  
+            if (checkName == false && checkEqual == false  &&checkAddress==false && checkDescription==false && checkUnits==false && checkValue==false )
             {
                 MainWindow.concentrator.cAddAO(newAO);
                 this.Close();
@@ -103,7 +88,7 @@ namespace WpfApp1
             else if (checkAddress == true) MessageBox.Show("Address field is empty!");
             else if (checkEqual == true) MessageBox.Show("Name alredy exists!");
             else if (checkUnits == true) MessageBox.Show("Units field is empty!");
-            else if (checkDouble == true || checkValue==true) MessageBox.Show("Value input is invalid!");
+            else if ( checkValue==true) MessageBox.Show("Value input is invalid!");
 
         }
     }

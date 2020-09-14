@@ -71,7 +71,7 @@ namespace WpfApp1
             else if ((double.TryParse(TimeBoxDI.Text.ToString(), out proposedValue)))
             {
                 double d = Convert.ToDouble(TimeBoxDI.Text);
-                if (d < 0) TimeBoxDI.BorderBrush = Brushes.Red; checkTime = true;
+                if (d < 0) { TimeBoxDI.BorderBrush = Brushes.Red; checkTime = true; }
             }
             else { checkTime = false; TimeBoxDI.BorderBrush = Brushes.LightGray; }
             if (TimeBoxDI.Text.ToString().Equals("0")) { TimeBoxDI.BorderBrush = Brushes.Red; checkTime = true; }
