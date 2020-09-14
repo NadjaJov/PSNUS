@@ -1,0 +1,219 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1" xmlns:c="clr-namespace:System.Data;assembly=System.Data"
+        xmlns:toolkit="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+        mc:Ignorable="d"
+        Closing="Window_Closing"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="DI (digital input)" Width="100">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="datagridDI" SelectedItem="{Binding SelectedDI}" Grid.ColumnSpan="2" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" CanUserDeleteRows="False" HeadersVisibility="Column" CanUserSortColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tag name (id)" Binding="{Binding Path=IdNameDI}" Width="*" />
+                            <DataGridTextColumn Header="Description" Binding="{Binding Path=DescriptionDI}" Width="*"/>
+                            <DataGridTextColumn Header="I/O address" Binding="{Binding Path=AddressDI}" Width="*"/>
+                            <DataGridTextColumn Header="Scan time" Binding="{Binding Path=ScanTimeDI}" Width="*"/>
+                            <DataGridTextColumn Header="Value" Binding="{Binding Path=ValueDI}" Width="*"/>
+
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Button Content="Delete" Click="deleteDI" />
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content="Add DI" Grid.Row="1" Click="Button_Click_AddDI"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="DO (digital output)" Width="120">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="datagridDO" SelectedItem="{Binding SelectedDO}" CurrentCellChanged="datagridDO_CurrentCellChanged"   Grid.ColumnSpan="2" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column" CanUserSortColumns="False" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tag name (id)" Binding="{Binding Path=IdNameDO}" IsReadOnly="True" Width="*" />
+                            <DataGridTextColumn Header="Description" Binding="{Binding Path=DescriptionDO}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="I/O address" Binding="{Binding Path=AddressDO}"  IsReadOnly="True" Width="*"/>
+                            <toolkit:DataGridTextColumn Header="Initial value" x:Name="valueDO" IsReadOnly="False" Width="*">
+                                <toolkit:DataGridTextColumn.Binding>
+                                    <Binding Path="InitialValueDO">
+                                        <Binding.ValidationRules>
+                                            <local:ValueValidationDO/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </toolkit:DataGridTextColumn.Binding>
+                            </toolkit:DataGridTextColumn>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Button Content="Delete" Click="deleteDO"/>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content="Add DO" Grid.Row="1" Click="Button_Click_AddDO"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="AI (analog input)" Width="100">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="394*"/>
+                        <ColumnDefinition Width="118*"/>
+                        <ColumnDefinition Width="275*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="datagridAI" SelectedItem="{Binding SelectedAI}" Grid.ColumnSpan="3" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" HeadersVisibility="Column" CanUserSortColumns="False" Margin="0,0,0,39" Grid.RowSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tag name (id)" Binding="{Binding Path=IdNameAI}" Width="*"/>
+                            <DataGridTextColumn Header="Description" Binding="{Binding Path=DescriptionAI}" Width="*"/>
+                            <DataGridTextColumn Header="I/O address" Binding="{Binding Path=AddressAI}" Width="*"/>
+                            <DataGridTextColumn Header="Scan time" Binding="{Binding Path=ScanTimeAI}" Width="*"/>
+                            <DataGridTextColumn Header="Alarm state" Binding="{Binding Path=Active}"  Width="120"/>
+                            <DataGridTextColumn Header="Units" Binding="{Binding Path=UnitsAI}" Width="*"/>
+                            <DataGridTextColumn Header="Value" Binding="{Binding Path=ValueAI}" Width="*"/>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Button Content="Delete AI" Click="deleteAI"/>
+                                            <Button Content="Link alarms" Click="Button_Click_AddAlarmAI"/>
+                                            <Button Content="Unlink alarms" Click="deleteAIalarm"/>
+                                            <Button Content="View linked alarms" Click="viewAlarms"/>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{ Binding State}" Value="ALARM">
+                                        <Setter Property="Background" Value="OrangeRed"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{ Binding State}" Value="REGULAR">
+                                        <Setter Property="Background" Value="LightGreen"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{ Binding State}" Value="NO_LINKED_ALARM">
+                                        <Setter Property="Background" Value="White" ></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                    </DataGrid>
+                    <Button Content="Add AI" Click="Button_Click_AddAI" Grid.Row="1" Margin="0,0.2,0.4,0"/>
+                    <Button Content="History" Click="viewHistory" Grid.Row="1" Margin="384,0.2,10,0" Grid.ColumnSpan="3"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="AO (analog output)" Width="110">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="datagridAO" SelectedItem="{Binding SelectedAO}" CurrentCellChanged="datagridAO_CurrentCellChanged" Grid.ColumnSpan="2" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column" CanUserSortColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tag name (id)" Binding="{Binding Path=IdNameAO}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Description" Binding="{Binding Path=DescriptionAO}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="I/O address" Binding="{Binding Path=AddressAO}" IsReadOnly="True" Width="*"/>
+                            <toolkit:DataGridTextColumn Header="Initial value"   IsReadOnly="False" Width="*">
+                              <toolkit:DataGridTextColumn.Binding>
+                                <Binding Path="InitialValueAO">
+                                    <Binding.ValidationRules>
+                                        <local:ValueValidationAO/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </toolkit:DataGridTextColumn.Binding>
+                            </toolkit:DataGridTextColumn>
+                            <DataGridTextColumn Header="Units" Binding="{Binding Path=UnitsAO}" IsReadOnly="True" Width="*"/>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Button Content="Delete" Click="deleteAO"/>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content="Add AO" Click="Button_Click_AddAO" Grid.Row="1"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Alarms" Width="120">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140*"/>
+                        <ColumnDefinition Width="57*"/>
+                        <ColumnDefinition Width="197*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="datagridAlarms" SelectedItem="{Binding SelectedAlarm}" SelectionMode="Single" AutoGenerateColumns="False" Grid.ColumnSpan="3" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" HeadersVisibility="Column" CanUserSortColumns="False" Margin="0,0,0,39" Grid.RowSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name (id)" Binding="{Binding Path=IdNameAlarm}" Width="*"/>
+                            <DataGridTextColumn Header="Limit value" Binding="{Binding Path=Limit}" Width="*"/>
+                            <DataGridTextColumn Header="Is activated under/above the limit" Binding="{Binding Path=OverUnder}" Width="200"/>
+                            <DataGridTextColumn Header="Message" Binding="{Binding Path=Message}" Width="*"/>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Button Content="Delete alarm" Click="deleteAlarm"/>
+                                            <Button Content="Link AIs" Click="addAItoAlarm"/>
+                                            <Button Content="Unlink AIs" Click="deleteAIfromAlarm"/>
+                                            <Button Content="View linked AIs" Click="viewAIs"/>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content="Add alarm" Click="Button_Click_AddAlarm" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0.2,0.4,0"/>
+                </Grid>
+            </TabItem>
+            
+            
+          
+        </TabControl>
+    </Grid>
+</Window>

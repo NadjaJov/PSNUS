@@ -1,0 +1,27 @@
+﻿<Window x:Class="WpfApp1.DeleteAlarmAI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="DeleteAlarmAI" Height="450" Width="800">
+    <Grid>
+        <ListBox  Name="deletelist"  SelectedValuePath="idAlarm" SelectionMode="Multiple" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,100,0,0" Height="200" Width="200">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Path=IdNameAlarm}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Content="Delete alarm(s) from AI" Click="deleteAIalarm" HorizontalAlignment="Left" Margin="350,200,0,0" VerticalAlignment="Top" Width="130" RenderTransformOrigin="1.65,1.133"/>
+
+    </Grid>
+</Window>

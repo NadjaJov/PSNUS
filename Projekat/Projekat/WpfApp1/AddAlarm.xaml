@@ -1,0 +1,26 @@
+﻿<Window x:Class="WpfApp1.AddAlarm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="AddAlarm" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Alarm name (id) :" HorizontalAlignment="Left" Margin="140,100,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <TextBox Name="NameBoxAlarm"  Text="{Binding Path=IdNameAlarm}" HorizontalAlignment="Left" Height="23" Margin="250,100,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <Label Content="Limit value" HorizontalAlignment="Left" Margin="140,150,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <TextBox Name="limitvalueBoxAlarm"  Text="{Binding Path=Limit}" HorizontalAlignment="Left" Height="23" Margin="250,150,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <Label Content="Alarm is activated when value is" HorizontalAlignment="Left" Margin="68,200,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Border Name="BorderAlarm" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="248,198,0,0" Width="124" Height="26"/>
+        <ComboBox Name="overunderBoxAlarm" SelectedItem="{Binding Path=OverUnder}" HorizontalAlignment="Left" Margin="250,200,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <Label Content="the limit" HorizontalAlignment="Left" Margin="380,200,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="Alarm message" HorizontalAlignment="Left" Margin="130,250,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <TextBox Name="messageBoxAlarm" Text="{Binding Path=Message}" HorizontalAlignment="Left" Height="23" Margin="250,250,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <Button Content="Save" Click="saveAlarm" HorizontalAlignment="Left" Margin="210,320,0,0" VerticalAlignment="Top" Width="100" Height="20" Grid.ColumnSpan="2"/>
+    </Grid>
+</Window>
